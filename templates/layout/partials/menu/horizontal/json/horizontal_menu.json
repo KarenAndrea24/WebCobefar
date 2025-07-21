@@ -1,0 +1,22 @@
+{
+  "menu": [
+    {
+      "url": "index",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "name": "Inicio",
+      "slug": "index"
+    },
+    {
+      "url": "ordenes-ventas",
+      "icon": "menu-icon tf-icons ti ti-app-window",
+      "name": "Ordenes de ventas",
+      "slug": "ordenes-ventas"
+    },
+    {
+      "url": "ordenes-ventas-seleccionadas",
+      "icon": "menu-icon tf-icons ti ti-app-window",
+      "name": "Ordenes de ventas seleccionadas",
+      "slug": "ordenes-ventas-seleccionadas"
+    }
+  ]
+}

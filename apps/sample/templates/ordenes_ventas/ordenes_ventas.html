@@ -1,0 +1,110 @@
+{# templates/documentos_base.html #}
+{% extends layout_path %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block vendor_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'vendor/libs/datatables-bs5/datatables.bootstrap5.css' %}" />
+<link rel="stylesheet" href="{% static 'vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css' %}" />
+<link rel="stylesheet" href="{% static 'vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css' %}" />
+<link rel="stylesheet" href="{% static 'vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css' %}" />
+<link rel="stylesheet" href="{% static 'vendor/libs/flatpickr/flatpickr.css' %}" />
+<link rel="stylesheet" href="{% static 'vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css' %}" />
+<link rel="stylesheet" href="{% static 'vendor/libs/@form-validation/form-validation.css' %}" />
+{% endblock vendor_css %}
+
+{% block vendor_js %}
+{{ block.super }}
+<script src="{% static 'vendor/libs/datatables-bs5/datatables-bootstrap5.js' %}"></script>
+<script src="{% static 'vendor/libs/moment/moment.js' %}"></script>
+<script src="{% static 'vendor/libs/flatpickr/flatpickr.js' %}"></script>
+<script src="{% static 'vendor/libs/@form-validation/popular.js' %}"></script>
+<script src="{% static 'vendor/libs/@form-validation/bootstrap5.js' %}"></script>
+<script src="{% static 'vendor/libs/@form-validation/auto-focus.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block page_js %}
+  <script>
+    const URL_DATOS = "{{ url_json }}";
+  </script>
+  {{ block.super }}
+  <script src="{% static 'js/datatable-ov.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initDocumentoTable({
+        urlDatos: URL_DATOS,
+        tablaSelector: '.datatables-basic',
+        filtrosSelector: '#filtros-documentos'
+      });
+    });
+  </script>
+{% endblock page_js %}
+
+{% block extra_js %}{% endblock extra_js %}
+
+{% block content %}
+  {# ---- Cabecera con filtros ---- #}
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+        <h4 class="mb-0">{{ titulo }}</h4>
+        <button type="button" id="limpiar-filtros" class="btn btn-label-primary d-flex align-items-center">
+          <i class="ti ti-file-export me-1"></i> Limpiar filtros
+        </button>
+      </div>
+
+      <form id="filtros-documentos" class="row g-2 mb-3">
+        <div class="col-md-3">
+          <label class="form-label mb-0">Número OV</label>
+          <input type="text" id="filtro-numero-ov" class="form-control" placeholder="Ingrese número OV">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label mb-0">Fecha creación</label>
+          <input type="text" id="filtro-fecha-creacion" class="form-control" placeholder="Ingrese fecha de creación">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label mb-0">OV vinculado</label>
+          <input type="text" id="filtro-ov-vinculado" class="form-control" placeholder="Ingrese OV vinculado">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label mb-0">Asesor comercial</label>
+          <input type="text" id="filtro-asesor-comercial" class="form-control" placeholder="Ingrese asesor comercial">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {# ---- Tabla ---- #}
+  <div class="card">
+    <div class="card-datatable table-responsive pt-0">
+      <table class="datatables-basic table" style="min-width: 1800px;">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Número OV</th>
+            <th>Fecha creación</th>
+            <th>Hora creación</th>
+            <th>OV vinculado</th>
+            <th>Monto total</th>
+            <th>Asesor comercial</th>
+            <th>Destino</th>
+            <th>Canal ventas</th>
+            <th>Cant. items</th>
+            <th>Pickear</th>
+            <th>Asignación de lotes</th>
+            <th>Estado SAP</th>
+            <th>Respuesta integrador</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+{% endblock %}
