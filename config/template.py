@@ -39,7 +39,7 @@ TEMPLATE_CONFIG = {
 THEME_VARIABLES = {
     "creator_name": "CFR Solutions",
     "creator_url": "https://cfrsolution.com/",
-    "template_name": "Cobefar",
+    "template_name": "",
     "template_suffix": "Portal web",
     "template_version": "2.0.0",
     "template_free": False,

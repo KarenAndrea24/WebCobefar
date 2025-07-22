@@ -1,0 +1,139 @@
+{% load static %}
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+
+  <!-- 1. Información de la Orden de Venta -->
+  <fieldset class="border p-3 mb-3">
+    <legend class="h5 w-auto">Información de orden de venta</legend>
+    <div class="row">
+      <div class="col-md-3">
+        <label>N° de documento:</label>
+        <input type="text" value="{{ orden.numero_ov }}" class="form-control" disabled>
+      </div>
+      <div class="col-md-3">
+        <label>Cliente:</label>
+        <input type="text" value="{{ orden.cliente }}" class="form-control" disabled>
+      </div>
+      <div class="col-md-3">
+        <label>Asesor:</label>
+        <input type="text" value="{{ orden.asesor_comercial }}" class="form-control" disabled>
+      </div>
+      <div class="col-md-3">
+        <label>Canal venta:</label>
+        <input type="text" value="{{ orden.canal_ventas }}" class="form-control" disabled>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- 2. Detalle de Orden de Venta -->
+  <fieldset class="border p-3 mb-3">
+    <legend class="h5 w-auto">Detalle de orden de venta</legend>
+    <table id="tabla-detalles-lotes" class="table table-bordered table-sm table-striped display">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Descripción</th>
+          <th>Cantidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in detalles %}
+        <tr>
+          <td>{{ item.codigo }}</td>
+          <td>{{ item.descripcion }}</td>
+          <td>{{ item.cantidad }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </fieldset>
+
+  <!-- 3. Administración de Lotes -->
+  <fieldset class="border p-3">
+    <legend class="h5 w-auto">Administración de lotes</legend>
+    <div class="row">
+      <div class="col-md-5">
+        <h6>Lotes disponibles</h6>
+        <table id="tabla-lotes-disponibles" class="table table-bordered table-hover display" style="min-width: 700px;">
+          <thead>
+            <tr>
+              <th>Ubicación</th>
+              <th>Nro Lote</th>
+              <th>Disponible</th>
+              <th>Fec. Venc</th>
+              <th>Fec. Adm</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for lote in lotes_disponibles %}
+            <tr>
+              <td>{{ lote.ubicacion }}</td>
+              <td>{{ lote.nro_lote }}</td>
+              <td>{{ lote.cantidad_disponible }}</td>
+              <td>{{ lote.fecha_vencimiento }}</td>
+              <td>{{ lote.fecha_admision }}</td>
+              <td>
+                <input type="number" name="cantidad_{{ lote.id }}" min="0" max="{{ lote.cantidad_disponible }}" class="form-control form-control-sm">
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
+        <button type="submit" name="Asignar" class="btn btn-outline-primary mb-2">→</button>
+        <button type="submit" name="desasignar" class="btn btn-outline-secondary">←</button>
+      </div>
+
+      <div class="col-md-5">
+        <h6>Lotes seleccionados</h6>
+        <table id="tabla-lotes-asignados" class="table table-bordered table-hover display" style="min-width: 700px;">
+          <thead>
+            <tr>
+              <th>Ubicación</th>
+              <th>Nro Lote</th>
+              <th>Cant. Asignada</th>
+              <th>Fec. Venc</th>
+              <th>Fec. Adm</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for asignado in lotes_asignados %}
+            <tr>
+              <td>{{ asignado.lote.ubicacion }}</td>
+              <td>{{ asignado.lote.nro_lote }}</td>
+              <td>{{ asignado.cantidad_asignada }}</td>
+              <td>{{ asignado.lote.fecha_vencimiento }}</td>
+              <td>{{ asignado.lote.fecha_admision }}</td>
+              <td><button class="btn btn-sm btn-danger">🗑️</button></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="text-end mt-3">
+    <button type="submit" class="btn btn-sm btn-success">Registrar</button>
+    <button type="submit" class="btn btn-sm btn-primary">Automatica</button>
+    <button type="submit" class="btn btn-sm btn-warning">Manual</button>
+  </div>
+</form>
+
+<script src="/static/js/ordenes-ventas/tablas/tabla-lotes-asignados.js"></script>
+<script src="/static/js/ordenes-ventas/tablas/tabla-lotes-disponibles.js"></script>
+<script src="/static/js/ordenes-ventas/tablas/tabla-lotes-detalles.js"></script>
+
+<script>
+$('#asignarLotes').on('shown.bs.modal', function () {
+  $('#tabla-detalles-lotes').DataTable().columns.adjust();
+});
+</script>
+
+{% endblock %}

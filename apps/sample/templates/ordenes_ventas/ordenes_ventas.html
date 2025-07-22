@@ -26,25 +26,6 @@
 <script src="{% static 'vendor/libs/@form-validation/auto-focus.js' %}"></script>
 {% endblock vendor_js %}
 
-{% block page_js %}
-  <script>
-    const URL_DATOS = "{{ url_json }}";
-  </script>
-  {{ block.super }}
-  <script src="{% static 'js/datatable-ov.js' %}"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      initDocumentoTable({
-        urlDatos: URL_DATOS,
-        tablaSelector: '.datatables-basic',
-        filtrosSelector: '#filtros-documentos'
-      });
-    });
-  </script>
-{% endblock page_js %}
-
-{% block extra_js %}{% endblock extra_js %}
-
 {% block content %}
   {# ---- Cabecera con filtros ---- #}
   <div class="card mb-4">
@@ -80,6 +61,34 @@
     </div>
   </div>
 
+  {% comment %} {% include 'ordenes_ventas/modals/modal_asignar_lotes.html' %} {% endcomment %}
+
+  <div class="modal fade" id="asignarLotes" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-fullscreen-custom">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Asignación de lotes</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body"><!-- AJAX inject --></div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} {% include 'ordenes_ventas/modals/modal_visualizar_ov.html' %} {% endcomment %}
+
+  <div class="modal fade" id="visualizarOV" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-custom">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Información de la orden de venta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body"><!-- AJAX inject --></div>
+      </div>
+    </div>
+  </div>
+
   {# ---- Tabla ---- #}
   <div class="card">
     <div class="card-datatable table-responsive pt-0">
@@ -108,3 +117,24 @@
     </div>
   </div>
 {% endblock %}
+
+{% block page_js %}
+  <script>
+    const URL_DATOS = "{{ url_json }}";
+  </script>
+  {{ block.super }}
+  <script src="{% static 'js/datatable-ov.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initDocumentoTable({
+        urlDatos: URL_DATOS,
+        tablaSelector: '.datatables-basic',
+        filtrosSelector: '#filtros-documentos'
+      });
+    });
+  </script>
+{% endblock page_js %}
+
+{% block extra_js %}
+
+{% endblock extra_js %}

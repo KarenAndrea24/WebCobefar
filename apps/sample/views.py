@@ -1,6 +1,8 @@
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView
-from apps.sample.models import OrdenVenta
+from apps.sample.forms import LoteAsignadoForm
+from apps.sample.models import Lote, OrdenVenta
 from web_project import TemplateLayout
 
 
@@ -37,7 +39,7 @@ def ordenes_venta_json(request):
         'hora_creacion',
         'ov_vinculado',
         'monto_total',
-        'asesor_comercial__username',
+        'asesor_comercial',
         'destino',
         'canal_ventas',
         'cantidad_items',
@@ -48,3 +50,40 @@ def ordenes_venta_json(request):
     )
     data = list(ordenes)
     return JsonResponse({'data': data})
+
+
+def asignar_lotes(request, orden_id):
+    orden = get_object_or_404(OrdenVenta, id=orden_id)
+    detalles = orden.detalles.all()
+    lotes_disponibles = Lote.objects.all()
+    lotes_asignados = orden.lotes_asignados.all()
+
+    if request.method == 'POST':
+        pass
+
+    context = {
+        'orden': orden,
+        'detalles': detalles,
+        'lotes_disponibles': lotes_disponibles,
+        'lotes_asignados': lotes_asignados,
+        'form': LoteAsignadoForm() 
+    }
+
+    return render(request, 'ordenes_ventas/modals/modal_asignar_lotes.html', context)
+
+
+def visualizar_orden_venta(request, orden_id):
+    orden = get_object_or_404(OrdenVenta, id=orden_id)
+    detalles = orden.detalles.all()
+    # personas_autorizadas = orden.personas_autorizadas.all()
+
+    if request.method == 'POST':
+        pass
+
+    context = {
+        'orden': orden,
+        'detalles': detalles,
+        # 'personas_autorizadas': personas_autorizadas,
+    }
+
+    return render(request, 'ordenes_ventas/modals/modal_visualizar_ov.html', context)

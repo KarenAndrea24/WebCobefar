@@ -27,7 +27,7 @@ function initDocumentoTable ({ urlDatos, tablaSelector, filtrosSelector }) {
     { data: 'hora_creacion' },
     { data: 'ov_vinculado' },
     { data: 'monto_total' },
-    { data: 'asesor_comercial__username' },
+    { data: 'asesor_comercial' },
     { data: 'destino' },
     { data: 'canal_ventas' },
     { data: 'cantidad_items' },
@@ -55,15 +55,24 @@ function initDocumentoTable ({ urlDatos, tablaSelector, filtrosSelector }) {
   });
 
 
-/* --- Visualizar ---------------------------------------------------------- */
-$tabla.on('click', '.btn-view', function () {
+/* --- Asignar lotes ---------------------------------------------------------- */
+$tabla.on('click', '.btn-lot', function () {
   const id = $(this).data('id');
-  $.get(`/documentos/${id}/`, html => {
-    $('#docModal .modal-body').html(html);
-    $('#docModal').modal('show');
+  $.get(`/orden-venta/${id}/asignar-lotes/`, function(html) {
+    $('#asignarLotes .modal-body').html(html);
+    $('#asignarLotes').modal('show');
   });
 });
 
+
+/* --- Visualizar ---------------------------------------------------------- */
+$tabla.on('click', '.btn-view', function () {
+  const id = $(this).data('id');
+  $.get(`/orden-venta/${id}/visualizar-ov`, html => {
+    $('#visualizarOV .modal-body').html(html);
+    $('#visualizarOV').modal('show');
+  });
+});
 
 /* --- Borrar -------------------------------------------------------------- */
 $tabla.on('click', '.btn-delete', function () {
@@ -155,8 +164,8 @@ function getColumnDefs () {
       render: (data, type, full) =>
         `
         <div class="btn-group" role="group">
-          <button class="btn btn-sm btn-primary btn-icon btn-view  me-2" data-id="${full.id}" title="Asignar lotes">
-            <i class="ti ti-eye"></i>
+          <button class="btn btn-sm btn-primary btn-icon btn-lot  me-2" data-id="${full.id}" title="Asignar lotes">
+            <i class="ti ti-arrows-right-left"></i>
           </button>
           <button class="btn btn-sm btn-secondary btn-icon btn-view  me-2" data-id="${full.id}" title="Visualizar">
             <i class="ti ti-eye"></i>

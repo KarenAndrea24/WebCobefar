@@ -1,0 +1,153 @@
+{% load static %}
+{% comment %} <div class="modal fade" id="visualizarOV" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Visualización de orden de venta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body"> {% endcomment %}
+
+        <fieldset class="border p-3 mb-3">
+          <legend class="h5 w-auto">Orden de venta</legend>
+          <div class="row g-3">
+            <div class="col-md-3"><label>Número OV:</label><input type="text" value="{{ orden.numero_ov }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Fecha creación:</label><input type="text" value="{{ orden.fecha_creacion }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Hora creación:</label><input type="text" value="{{ orden.hora_creacion }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>OV vinculado:</label><input type="text" value="{{ orden.ov_vinculado }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Cliente:</label><input type="text" value="{{ orden.cliente }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Asesor comercial:</label><input type="text" value="{{ orden.asesor_comercial }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Destino:</label><input type="text" value="{{ orden.destino }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Canal ventas:</label><input type="text" value="{{ orden.canal_ventas }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Condición de pago:</label><input type="text" value="{{ orden.condicion_pago.nombre }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Lugar de destino:</label><input type="text" value="{{ orden.lugar_destino.nombre }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Dirección de envío:</label><input type="text" value="{{ orden.direccion_envio.nombre }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Dirección de facturación:</label><input type="text" value="{{ orden.direccion_facturacion.nombre }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Tipo de comprobante:</label><input type="text" value="{{ orden.tipo_comprobante.nombre }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Tipo de embalaje:</label><input type="text" value="{{ orden.tipo_embalaje.nombre }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Almacén:</label><input type="text" value="{{ orden.almacen.nombre }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Lista de precios:</label><input type="text" value="{{ orden.lista_precios.nombre }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Vendedor:</label><input type="text" value="{{ orden.vendedor.nombre }}" class="form-control" disabled></div>
+          </div>
+        </fieldset>
+
+        <!-- Datos de persona autorizada -->
+        <fieldset class="border p-3 mb-3">
+          <legend class="h5 w-auto">Datos de persona autorizada</legend>
+          <div class="row">
+            <div class="col-md-3">
+              <label>Tipo de documento:</label>
+              <input type="text" value="{{ orden.persona_autorizada.tipo_documento }}" class="form-control" disabled>
+            </div>
+            <div class="col-md-3">
+              <label>N° de documento:</label>
+              <input type="text" value="{{ orden.persona_autorizada.numero_documento }}" class="form-control" disabled>
+            </div>
+            <div class="col-md-3">
+              <label>Nombres y apellidos:</label>
+              <input type="text" value="{{ orden.persona_autorizada.nombres_apellidos }}" class="form-control" disabled>
+            </div>
+            <div class="col-md-3">
+              <label>Celular:</label>
+              <input type="text" value="{{ orden.persona_autorizada.celular }}" class="form-control" disabled>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Detalle de orden de venta -->
+        <fieldset class="border p-3">
+          <legend class="h5 w-auto">Detalle de orden de venta</legend>
+          <div class="table-responsive">
+            <table id="tabla-detalle" class="table table-bordered table-sm table-striped display">
+              <thead>
+                <tr>
+                  <th>Descripción</th>
+                  <th>Código</th>
+                  <th>Stock disponible</th>
+                  <th>Lista de precio</th>
+                  <th>Cantidad</th>
+                  <th>UMD</th>
+                  <th>Precio IGV A.D</th>
+                  <th>% Dsto</th>
+                  <th>Precio IGV D.D</th>
+                  <th>Impuesto</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in detalles %}
+                <tr>
+                  <td>{{ item.descripcion }}</td>
+                  <td>{{ item.codigo }}</td>
+                  <td>{{ item.stock_disponible }}</td>
+                  <td>{{ item.lista_precio }}</td>
+                  <td>{{ item.cantidad }}</td>
+                  <td>{{ item.umd }}</td>
+                  <td>{{ item.precio_igv_ad }}</td>
+                  <td>{{ item.porcentaje_descuento }}</td>
+                  <td>{{ item.precio_igv_dd }}</td>
+                  <td>{{ item.monto_impuesto }}</td>
+                  <td>{{ item.total }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </fieldset>
+
+        <fieldset class="border p-3 mb-3">
+            {% comment %} <legend class="h5 w-auto">Totales</legend> {% endcomment %}
+                <div class="row g-3 align-items-end">
+                    <!-- Subtotal -->
+                    <div class="col-md-3">
+                        <label>SubTotal:</label>
+                        <input type="text" id="subtotal" value="{{ orden.subtotal }}" class="form-control" disabled>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Dscto Total:</label>
+                        <div class="row gx-1">
+                            <!-- % Descuento (1 parte) -->
+                            <div class="col-4">
+                              <div class="input-group">
+                                  <input type="number" id="porcentaje_descuento" class="form-control" placeholder="0" min="0" max="100" disabled>
+                                  <span class="input-group-text">%</span>
+                              </div>
+                            </div>
+
+                            <!-- Dscto calculado (2 partes) -->
+                            <div class="col-8">
+                              <input type="text" id="descuento_total" value="{{ orden.descuento_total }}" class="form-control" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Impuesto -->
+                    <div class="col-md-3">
+                        <label>Impuesto:</label>
+                        <input type="text" id="impuesto" value="{{ orden.impuesto }}" class="form-control" disabled>
+                    </div>
+
+                    <!-- Monto total -->
+                    <div class="col-md-3">
+                        <label>Monto Total:</label>
+                        <input type="text" id="monto_total" value="{{ orden.monto_total }}" class="form-control" disabled>
+                    </div>                    
+                </div>
+        </fieldset>
+
+        <script src="/static/js/ordenes-ventas/tablas/tabla-ov-detalles.js"></script>
+
+        <script>
+        $('#visualizarOV').on('shown.bs.modal', function () {
+            $('#tabla-detalle').DataTable().columns.adjust();
+        });
+        </script>
+
+      {% comment %} </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div> {% endcomment %}
+{% comment %} </div> {% endcomment %}
