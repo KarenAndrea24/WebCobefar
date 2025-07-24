@@ -11,7 +11,7 @@
   height: 64px;
 }
 
-.app-brand-logo.demo {
+/* .app-brand-logo.demo {
   -ms-flex-align: center;
   align-items: center;
   -ms-flex-pack: center;
@@ -25,6 +25,17 @@
 .app-brand-logo.demo svg {
   width: 35px;
   height: 24px;
+} */
+
+.app-brand-logo.demo {
+  width: auto;
+  height: auto;
+  max-width: 160px;
+}
+
+.app-brand-logo.demo svg {
+  width: 100%;
+  height: auto;
 }
 
 .app-brand-text.demo {

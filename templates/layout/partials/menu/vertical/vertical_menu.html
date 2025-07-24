@@ -4,9 +4,13 @@
   <div class="app-brand demo">
     <a href="{% url 'index' %}" class="app-brand-link">
       <span class="app-brand-logo demo">
-        {% include 'partials/logo.html' %}
+        {% comment %} {% include 'partials/logo.html' %} {% endcomment %}
+        <img id="logo-cobefar"
+              src="{% static 'img/logo/logo_cobefar_light.svg' %}"
+              alt="Cobefar"
+              height="40">
       </span>
-      <span class="app-brand-text demo menu-text fw-bold">{% get_theme_variables 'template_name' %}</span>
+      {% comment %} <span class="app-brand-text demo menu-text fw-bold">{% get_theme_variables 'template_name' %}</span> {% endcomment %}
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">

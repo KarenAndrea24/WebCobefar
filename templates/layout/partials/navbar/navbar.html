@@ -16,8 +16,17 @@
       <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
         <a href="{% url 'index' %}" class="app-brand-link">
           <span class="app-brand-logo demo">
-            {% include 'partials/logo.html' %}
-          </span>s
+            {% comment %} {% include 'partials/logo.html' %} {% endcomment %}
+            <img id="logo-cobefar"
+              src="{% static 'img/logo/logo_cobefar_light.svg' %}"
+              alt="Cobefar"
+              height="40">
+              {% comment %} {% if sidebar_collapsed %}
+                <img src="{% static 'img/logo/logo_cobefar_light.svg' %}" alt="Cobefar" height="32">
+              {% else %}
+                <img src="{% static 'img/logo/logo_cobefar_light.svg' %}" alt="Cobefar" height="40">
+              {% endif %} {% endcomment %}
+          </span>
           <span class="app-brand-text demo menu-text fw-bold">{% get_theme_variables 'template_name' %}</span>
         </a>
 

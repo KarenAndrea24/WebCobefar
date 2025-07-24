@@ -54,7 +54,8 @@
 }
 // Table heading style
 .table th {
-  text-transform: uppercase;
+  // text-transform: uppercase;
+  text-transform: none !important;
   font-size: $font-size-sm;
   letter-spacing: 0.2px;
   color: $table-th-color;
