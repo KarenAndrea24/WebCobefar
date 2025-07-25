@@ -148,6 +148,16 @@ function getColumnDefs () {
       responsivePriority: 1
     },
     {
+      targets: 11,
+      orderable: false,
+      searchable: false,
+      className: 'text-center',
+      render: (data, type, full, meta) => {
+        const checked = data === true ? 'checked' : '';
+        return `<input type="checkbox" class="form-check-input" disabled ${checked} >`;
+      }
+    },
+    {
       // Badge demo (puedes personalizar según tu status real)
       targets: -2,
       render: (data, type, full) => {
