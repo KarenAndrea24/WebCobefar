@@ -158,6 +158,20 @@ function getColumnDefs () {
       }
     },
     {
+      targets: 12, // estado_asignacion_lotes
+      className: 'text-center',
+      render: (data) => renderEstado(data)
+    },
+    {
+      targets: 13, // estado_sap
+      className: 'text-center',
+      render: (data) => renderEstadoSAP(data)
+    },
+    {
+      targets: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+      className: 'text-center'
+    },
+    {
       // Badge demo (puedes personalizar según tu status real)
       targets: -2,
       render: (data, type, full) => {
@@ -194,6 +208,29 @@ function getColumnDefs () {
         `
     }
   ];
+}
+
+function renderEstado(estado) {
+  const clean = (estado || '').toLowerCase();
+  const map = {
+    'pendiente':  'bg-label-warning',
+    'Procesando': 'bg-label-info',
+    'Asignado':   'bg-label-success'
+  };
+  const color = map[clean] || 'bg-label-default';
+  return `<span class="badge ${color}">${estado}</span>`;
+}
+
+function renderEstadoSAP(estado) {
+  const clean = (estado || '').toLowerCase();
+  const map = {
+    'pendiente':  'bg-label-warning',
+    'No migrado':   'bg-label-warning',
+    'Enviado SAP':  'bg-label-primary',
+    'Contabilizado':'bg-label-success'
+  };
+  const color = map[clean] || 'bg-label-default';
+  return `<span class="badge ${color}">${estado}</span>`;
 }
 
 // function datatableDom () {
