@@ -144,6 +144,30 @@ class PersonaAutorizada(models.Model):
 #         verbose_name_plural = "Personas autorizadas"
 
 
+class Serie(models.Model):
+    codigo = models.CharField(max_length=20, unique=True)
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = "Serie"
+        verbose_name_plural = "Series"
+
+
+class CuentaContable(models.Model):
+    codigo = models.CharField(max_length=20, unique=True)
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = "Cuenta contable"
+        verbose_name_plural = "Cuentas contables"
+
+
 class OrdenVenta(models.Model):
     numero_ov = models.CharField("Número OV", max_length=20, unique=True)
     fecha_creacion = models.DateField("Fecha creación")
