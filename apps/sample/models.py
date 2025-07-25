@@ -98,6 +98,14 @@ class TipoDocumento(models.Model):
         return self.nombre
 
 
+class Moneda(models.Model):
+    codigo = models.CharField(max_length=10, unique=True)
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+
 # class Cliente(models.Model):
 #     razon_social = models.CharField(max_length=255, unique=True)
 #     ruc = models.CharField(max_length=11, unique=True)
@@ -115,7 +123,7 @@ class PersonaAutorizada(models.Model):
 
     def __str__(self):
         return f"{self.numero_documento} - {self.nombres_apellidos}"
-    
+
     class Meta:
         verbose_name = "Persona autorizada"
         verbose_name_plural = "Personas autorizadas"
@@ -130,7 +138,7 @@ class PersonaAutorizada(models.Model):
 
 #     def __str__(self):
 #         return f"{self.numero_documento} - {self.nombres_apellidos}"
-    
+
 #     class Meta:
 #         verbose_name = "Persona autorizada"
 #         verbose_name_plural = "Personas autorizadas"
@@ -162,6 +170,7 @@ class OrdenVenta(models.Model):
     descuento_total = models.DecimalField("Descuento total (%)", max_digits=5, decimal_places=2, default=0)
     impuesto = models.DecimalField("Impuesto", max_digits=12, decimal_places=2, default=0)
     monto_total = models.DecimalField("Monto total", max_digits=12, decimal_places=2, default=0)
+    moneda = models.ForeignKey(Moneda, on_delete=models.PROTECT)
     zona = models.CharField("Zona", max_length=100, blank=True, null=True)
     persona_autorizada = models.ForeignKey(PersonaAutorizada, on_delete=models.PROTECT)
     linea_credito_disponible = models.DecimalField("Línea de crédito disponible", max_digits=12, decimal_places=2, blank=True, null=True)
@@ -196,7 +205,7 @@ class DetalleOrdenVenta(models.Model):
 
     def __str__(self):
         return f"{self.codigo} - {self.descripcion}"
-    
+
     class Meta:
         verbose_name = "Detalle órden de venta"
         verbose_name_plural = "Detalles órdenes de venta"

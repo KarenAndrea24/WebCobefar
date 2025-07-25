@@ -105,8 +105,15 @@ $tabla.on('click', '.btn-delete', function () {
     dt.row($(this).parents('tr')).remove().draw();
   });
 
-  // Ajuste de tamaños por defecto (evita controles "sm")
   setTimeout(() => {
+    // Insertar botón "Cancelado"
+    $('.cancelar-btn-wrapper').prepend(`
+      <button id="btn-cancelar" class="btn btn-label-danger waves-effect">
+        <i class="ti ti-ban"></i>Cancelar
+      </button>
+    `);
+
+    // Ajustes de tamaños (quitar "sm")
     $('.dataTables_filter .form-control').removeClass('form-control-sm');
     $('.dataTables_length .form-select').removeClass('form-select-sm');
   }, 300);
@@ -179,8 +186,29 @@ function getColumnDefs () {
   ];
 }
 
+// function datatableDom () {
+//   return '<"card-header flex-column flex-md-row"<"head-label text-center"><"dt-action-buttons text-end pt-6 pt-md-0"B>><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end mt-n6 mt-md-0"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>';
+// }
+
 function datatableDom () {
-  return '<"card-header flex-column flex-md-row"<"head-label text-center"><"dt-action-buttons text-end pt-6 pt-md-0"B>><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end mt-n6 mt-md-0"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>';
+  return `
+    <"card-header flex-column flex-md-row justify-content-between align-items-center"
+      <"head-label text-center mb-2 mb-md-0">
+    >
+    <"row"
+      <"col-sm-12 col-md-6"l>
+      <"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end align-items-center gap-2"
+        f
+        <"cancelar-btn-wrapper">
+        B
+      >
+    >
+    t
+    <"row"
+      <"col-sm-12 col-md-6"i>
+      <"col-sm-12 col-md-6"p>
+    >
+  `;
 }
 
 function datatableLang () {

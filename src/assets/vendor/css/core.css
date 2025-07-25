@@ -7567,7 +7567,7 @@ a.invert-bg-dark:hover, a.invert-bg-dark:focus {
   /* font-size: 0.8125rem; */
   letter-spacing: 0.2px;
   color: #444050;
-  background-color: #28a926;
+  /* background-color: #28a926; */
   font-weight: bold;
 }
 

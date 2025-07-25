@@ -28,6 +28,7 @@
             <div class="col-md-3"><label>Almacén:</label><input type="text" value="{{ orden.almacen.nombre }}" class="form-control" disabled></div>
             <div class="col-md-3"><label>Lista de precios:</label><input type="text" value="{{ orden.lista_precios.nombre }}" class="form-control" disabled></div>
             <div class="col-md-3"><label>Vendedor:</label><input type="text" value="{{ orden.vendedor.nombre }}" class="form-control" disabled></div>
+            <div class="col-md-3"><label>Moneda:</label><input type="text" value="{{ orden.moneda.nombre }}" class="form-control" disabled></div>
           </div>
         </fieldset>
 
@@ -132,7 +133,7 @@
                     <div class="col-md-3">
                         <label>Monto Total:</label>
                         <input type="text" id="monto_total" value="{{ orden.monto_total }}" class="form-control" disabled>
-                    </div>                    
+                    </div>
                 </div>
         </fieldset>
 

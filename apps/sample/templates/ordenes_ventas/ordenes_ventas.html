@@ -28,9 +28,9 @@
 
 {% block content %}
   {# ---- Cabecera con filtros ---- #}
-  <div class="card mb-4">
+  <div class="card">
     <div class="card-body">
-      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-6">
         <h4 class="mb-0">{{ titulo }}</h4>
         <button type="button" id="limpiar-filtros" class="btn btn-label-primary d-flex align-items-center">
           <i class="ti ti-eraser me-1"></i> Limpiar filtros
@@ -59,38 +59,37 @@
         </div>
       </form>
     </div>
-  </div>
 
   {% comment %} {% include 'ordenes_ventas/modals/modal_asignar_lotes.html' %} {% endcomment %}
 
-  <div class="modal fade" id="asignarLotes" tabindex="-1">
-    <div class="modal-dialog modal-xl modal-fullscreen-custom">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Asignación de lotes</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <div class="modal fade" id="asignarLotes" tabindex="-1">
+      <div class="modal-dialog modal-xl modal-fullscreen-custom">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Asignación de lotes</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body"><!-- AJAX inject --></div>
         </div>
-        <div class="modal-body"><!-- AJAX inject --></div>
       </div>
     </div>
-  </div>
 
-  {% comment %} {% include 'ordenes_ventas/modals/modal_visualizar_ov.html' %} {% endcomment %}
+    {% comment %} {% include 'ordenes_ventas/modals/modal_visualizar_ov.html' %} {% endcomment %}
 
-  <div class="modal fade" id="visualizarOV" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-fullscreen-custom">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Información de la orden de venta</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <div class="modal fade" id="visualizarOV" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-fullscreen-custom">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Información de la orden de venta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body"><!-- AJAX inject --></div>
         </div>
-        <div class="modal-body"><!-- AJAX inject --></div>
       </div>
     </div>
-  </div>
 
   {# ---- Tabla ---- #}
-  <div class="card">
+  {% comment %} <div class="card"> {% endcomment %}
     <div class="card-datatable table-responsive pt-0">
       <table class="datatables-basic table" style="min-width: 1800px;">
         <thead>
@@ -116,6 +115,7 @@
       </table>
     </div>
   </div>
+  {% comment %} </div> {% endcomment %}
 {% endblock %}
 
 {% block page_js %}
