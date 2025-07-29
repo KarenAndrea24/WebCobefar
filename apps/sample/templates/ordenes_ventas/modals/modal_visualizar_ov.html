@@ -59,7 +59,7 @@
         <fieldset class="border p-3">
           <legend class="h5 w-auto">Detalle de orden de venta</legend>
           <div class="table-responsive">
-            <table id="tabla-detalle" class="table table-bordered table-sm table-striped display">
+            <table id="tabla-detalles-visualizar" class="table table-bordered table-sm table-striped display" style="min-width: 1500px;">
               <thead>
                 <tr>
                   <th>Descripción</th>
@@ -137,11 +137,11 @@
                 </div>
         </fieldset>
 
-        <script src="/static/js/ordenes-ventas/tablas/tabla-ov-detalles.js"></script>
+        <script src="/static/js/ordenes-ventas/tablas/tabla-detalles-visualizar.js"></script>
 
         <script>
         $('#visualizarOV').on('shown.bs.modal', function () {
-            $('#tabla-detalle').DataTable().columns.adjust();
+            $('#tabla-detalles-visualizar').DataTable().columns.adjust();
         });
         </script>
 
